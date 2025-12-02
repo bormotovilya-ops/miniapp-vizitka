@@ -1,0 +1,136 @@
+body {
+    margin: 0;
+    font-family: Inter, sans-serif;
+    background: #0f172a;
+    color: white;
+    overflow: hidden;
+}
+
+.container {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+}
+
+/* Центр */
+.center-photo {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.center-photo img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 6px solid white;
+    object-fit: cover;
+    box-shadow: 0 0 26px rgba(255,255,255,0.35);
+}
+
+/* Сетка вокруг центра */
+.menu-grid {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.menu-item {
+    position: absolute;
+    background: #3b82f6;
+    padding: 12px 18px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    transition: 0.25s;
+    text-align: center;
+    box-shadow: 0 0 14px rgba(59,130,246,0.4);
+}
+
+.menu-item:hover {
+    transform: scale(1.08);
+}
+
+/* Позиции четырёх кнопок */
+.menu-item[data-menu="about"] {
+    left: 50%;
+    top: calc(50% - 180px);
+    transform: translateX(-50%);
+}
+
+.menu-item[data-menu="business"] {
+    left: calc(50% - 180px);
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.menu-item[data-menu="contacts"] {
+    left: calc(50% + 180px);
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.menu-item[data-menu="bot"] {
+    left: 50%;
+    top: calc(50% + 180px);
+    transform: translateX(-50%);
+}
+
+/* Подменю */
+.submenu {
+    position: absolute;
+    left: 50%;
+    top: calc(50% + 230px);
+    transform: translateX(-50%);
+    background: rgba(255,255,255,0.06);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 14px;
+    padding: 10px 0;
+    width: 260px;
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.3s ease;
+}
+
+.submenu.visible {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateX(-50%) translateY(0);
+}
+
+.submenu-item {
+    padding: 12px 16px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.submenu-item:hover {
+    background: rgba(255,255,255,0.15);
+}
+
+/* Адаптация для маленьких экранов */
+@media (max-width: 420px) {
+
+    .center-photo img {
+        width: 110px;
+        height: 110px;
+    }
+
+    .menu-item {
+        padding: 8px 12px;
+        font-size: 13px;
+    }
+
+    .menu-item[data-menu="about"] { top: calc(50% - 140px); }
+    .menu-item[data-menu="bot"] { top: calc(50% + 140px); }
+    .menu-item[data-menu="business"] { left: calc(50% - 140px); }
+    .menu-item[data-menu="contacts"] { left: calc(50% + 140px); }
+
+    .submenu {
+        width: 220px;
+    }
+}
