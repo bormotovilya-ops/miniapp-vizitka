@@ -3,163 +3,64 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MiniApp Sidebar Menu</title>
-    <style>
-        body {
-            margin: 0;
-            background: #0f172a;
-            font-family: Inter, sans-serif;
-            overflow: hidden;
-            color: white;
-        }
-
-        .container {
-            width: 100vw;
-            height: 100vh;
-            position: relative;
-        }
-
-        /* Центр */
-        .center-photo {
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-        }
-
-        .center-photo img {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            border: 6px solid white;
-            object-fit: cover;
-            box-shadow: 0 0 26px rgba(255,255,255,0.35);
-        }
-
-        /* Кнопки вокруг центра */
-        .menu-item {
-            position: absolute;
-            padding: 14px 22px;
-            background: #3b82f6;
-            border-radius: 14px;
-            font-size: 16px;
-            font-weight: 500;
-            cursor: pointer;
-            text-align: center;
-            box-shadow: 0 0 18px rgba(59,130,246,0.4);
-            transition: 0.2s;
-        }
-
-        .menu-item:hover {
-            transform: scale(1.08);
-        }
-
-        /* Позиции 4 кнопок */
-        .menu-about { left: 50%; top: calc(50% - 180px); transform: translateX(-50%); }
-        .menu-business { left: calc(50% - 180px); top: 50%; transform: translateY(-50%); }
-        .menu-contacts { left: calc(50% + 180px); top: 50%; transform: translateY(-50%); }
-        .menu-bot { left: 50%; top: calc(50% + 180px); transform: translateX(-50%); }
-
-        /* Сайдбар */
-        .sidebar {
-            position: absolute;
-            right: -260px;
-            top: 0;
-            width: 260px;
-            height: 100vh;
-            background: rgba(255,255,255,0.06);
-            backdrop-filter: blur(12px);
-            border-left: 1px solid rgba(255,255,255,0.12);
-            transition: 0.35s ease;
-            padding-top: 60px;
-        }
-
-        .sidebar.visible {
-            right: 0;
-        }
-
-        .sidebar-title {
-            font-size: 18px;
-            font-weight: 600;
-            padding: 0 20px 20px;
-        }
-
-        .submenu-item {
-            padding: 14px 20px;
-            font-size: 15px;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .submenu-item:hover {
-            background: rgba(255,255,255,0.14);
-        }
-
-    </style>
+    <title>MiniApp — Илья Бормотов</title>
+    <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
+    <div class="container">
 
-<div class="container">
+        <!-- Центральное фото + ссылка на Telegram -->
+        <a class="center-photo" href="https://t.me/ilyaborm" target="_blank">
+            <img src="images/me.jpg" alt="avatar" />
+        </a>
 
-    <div class="center-photo">
-        <img src="images/me.jpg" alt="avatar" />
+        <!-- 6 элементов меню -->
+        <div class="menu-item menu-1">
+            <img src="images/item1.jpg" />
+            <span> </span>
+        </div>
+
+        <div class="menu-item menu-2">
+            <img src="images/item2.jpg" />
+            <span> </span>
+        </div>
+
+        <div class="menu-item menu-3">
+            <img src="images/item3.jpg" />
+            <span> </span>
+        </div>
+
+        <div class="menu-item menu-4">
+            <img src="images/item4.jpg" />
+            <span> </span>
+        </div>
+
+        <div class="menu-item menu-5">
+            <img src="images/item5.jpg" />
+            <span> </span>
+        </div>
+
+        <div class="menu-item menu-6">
+            <img src="images/item6.jpg" />
+            <span> </span>
+        </div>
+
+
+        <!-- Сайдбар -->
+        <div class="sidebar" id="sidebar">
+
+            <div class="sidebar-title-area">
+                <div class="sidebar-title" id="sidebar-title">Раздел</div>
+                <div class="sidebar-close" id="close-sidebar">×</div>
+            </div>
+
+            <div id="sidebar-content"></div>
+
+        </div>
+
     </div>
 
-    <!-- Кнопки вокруг фото -->
-    <div class="menu-item menu-about" data-menu="about">Обо мне</div>
-    <div class="menu-item menu-business" data-menu="business">Бизнес</div>
-    <div class="menu-item menu-contacts" data-menu="contacts">Контакты</div>
-    <div class="menu-item menu-bot" data-menu="bot">О боте</div>
-
-    <!-- Сайдбар -->
-    <div class="sidebar" id="sidebar">
-        <div class="sidebar-title" id="sidebar-title">Название</div>
-        <div id="sidebar-content"></div>
-    </div>
-
-</div>
-
-<script>
-const sidebar = document.getElementById("sidebar");
-const sidebarTitle = document.getElementById("sidebar-title");
-const sidebarContent = document.getElementById("sidebar-content");
-
-const menuData = {
-    about: {
-        title: "Обо мне",
-        items: ["Опыт работы", "Шуточная игра телепатия", "Секретный раздел"]
-    },
-    business: {
-        title: "Бизнес",
-        items: ["Каталог", "Кейсы", "Партнеры"]
-    },
-    contacts: {
-        title: "Контакты",
-        items: ["Аккаунт в Telegram", "Канал", "Мой сайт", "ВК"]
-    },
-    bot: {
-        title: "О боте",
-        items: ["Описание бота"]
-    }
-};
-
-// Обработчик кликов
-const buttons = document.querySelectorAll(".menu-item");
-buttons.forEach(btn => {
-    btn.addEventListener("click", () => {
-        const id = btn.dataset.menu;
-        const data = menuData[id];
-
-        sidebarTitle.textContent = data.title;
-        sidebarContent.innerHTML = data.items
-            .map(item => `<div class='submenu-item'>${item}</div>`) 
-            .join("");
-
-        // показать сайдбар
-        sidebar.classList.add("visible");
-    });
-});
-</script>
-
+    <script src="script.js"></script>
 </body>
 </html>
